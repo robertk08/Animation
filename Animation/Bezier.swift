@@ -267,7 +267,7 @@ struct Bezier: View {
                 height: cy + sin(angle1) * radius
             )
             points.append(start)
-            var control = CGSize(
+            let control = CGSize(
                 width: (start.width + cx + cos(angle2) * radius) / 2,
                 height: (start.height + cy + sin(angle2) * radius) / 2
             )
