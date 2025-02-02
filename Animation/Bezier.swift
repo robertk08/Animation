@@ -1,5 +1,6 @@
 import SwiftUI
 //hello world
+//what up guys im using git
 
 struct Bezier: View {
     @State private var points: [CGSize] = [
@@ -22,7 +23,7 @@ struct Bezier: View {
     @State private var timer: Timer?
     @State private var mode = 1 // changeable: 1 or 2
     @State private var showText: Bool = false //changable
-    @State private var showGrid: Bool = true //changable
+    @State private var showLine: Bool = true //changable
     @State private var showCircles: Bool = true //changable
     @State private var showDrawing: Bool = true //changable
     @State private var showCurve: Bool = true //changable
@@ -46,7 +47,7 @@ struct Bezier: View {
                             timeToDrawLines: $timeToDrawLines,
                             mode: $mode,
                             showText: $showText,
-                            showGrid: $showGrid,
+                            showGrid: $showLine,
                             showCircles: $showCircles,
                             showDrawing: $showDrawing,
                             showCurve: $showCurve,
@@ -83,7 +84,7 @@ struct Bezier: View {
                 }
             }
             
-            if showGrid {
+            if showLine {
                 Path { path in
                     path.move(to: CGPoint(x: movingCircles[0].width, y: movingCircles[0].height))
                     path.addLine(to: CGPoint(x: movingCircles[1].width, y: movingCircles[1].height))
