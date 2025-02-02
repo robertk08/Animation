@@ -21,11 +21,11 @@ struct Bezier: View {
     @State private var timer: Timer?
     @State private var mode = 1 // changeable: 1 or 2
     @State private var showText: Bool = false //changable
-    @State private var showGrid: Bool = false //changable
-    @State private var showCircles: Bool = false //changable
-    @State private var showDrawing: Bool = false //changable
-    @State private var showCurve: Bool = false //changable
-    @State private var replacePoints: Bool = false //changable
+    @State private var showGrid: Bool = true //changable
+    @State private var showCircles: Bool = true //changable
+    @State private var showDrawing: Bool = true //changable
+    @State private var showCurve: Bool = true //changable
+    @State private var replacePoints: Bool = true //changable
     @State private var sides: Int = 5 //changable
     @State private var showSettingsSheet = false
 
@@ -33,30 +33,37 @@ struct Bezier: View {
     var body: some View {
         ZStack {
             VStack {
-                Button("Settings") {
-                    showSettingsSheet = true
-                }
-                .sheet(isPresented: $showSettingsSheet) {
-                    BezierSettingsSheet(
-                        points: $points,
-                        circleSize: $circleSize,
-                        timeBetweenLines: $timeBetweenLines,
-                        timeToDrawLines: $timeToDrawLines,
-                        mode: $mode,
-                        showText: $showText,
-                        showGrid: $showGrid,
-                        showCircles: $showCircles,
-                        showDrawing: $showDrawing,
-                        showCurve: $showCurve,
-                        replacePoints: $replacePoints,
-                        sides: $sides
-                    )
-                }
-                Button("Reset") {
-                    resetAnimations()
-                }
-                Button("Animate") {
-                    animateBezier()
+                HStack {
+                    Button("Settings") {
+                        showSettingsSheet = true
+                    }
+                    .sheet(isPresented: $showSettingsSheet) {
+                        BezierSettingsSheet(
+                            points: $points,
+                            circleSize: $circleSize,
+                            timeBetweenLines: $timeBetweenLines,
+                            timeToDrawLines: $timeToDrawLines,
+                            mode: $mode,
+                            showText: $showText,
+                            showGrid: $showGrid,
+                            showCircles: $showCircles,
+                            showDrawing: $showDrawing,
+                            showCurve: $showCurve,
+                            replacePoints: $replacePoints,
+                            sides: $sides
+                        )
+                    }
+                    .buttonStyle(BorderedButtonStyle())
+                    Button("Reset") {
+                        resetAnimations()
+                    }
+                    .buttonStyle(BorderedButtonStyle())
+                    .tint(.red)
+                    Button("Animate") {
+                        animateBezier()
+                    }
+                    .buttonStyle(BorderedButtonStyle())
+                    .tint(.green)
                 }
                 Spacer()
             }
