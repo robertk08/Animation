@@ -1,6 +1,4 @@
 import SwiftUI
-//hello world
-//what up guys im using version control
 
 struct Bezier: View {
     @State private var points: [CGSize] = [

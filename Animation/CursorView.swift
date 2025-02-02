@@ -7,7 +7,6 @@ struct CursorFollowView: View {
     
     var body: some View {
         ZStack {
-            // Background to detect drag gestures
             Color.blue.opacity(0.000001)
                 .edgesIgnoringSafeArea(.all)
                 .gesture(
@@ -17,7 +16,6 @@ struct CursorFollowView: View {
                         }
                 )
             
-            // Circle that follows the cursor
             Ellipse()
                 .fill(LinearGradient(gradient: Gradient(colors: [.blue, .purple, .indigo, .red]), startPoint: .leading, endPoint: .trailing))
                 .frame(width: 350, height: 280)
