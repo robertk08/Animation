@@ -1,12 +1,11 @@
 import SwiftUI
 
 struct RevealEffectView: View {
-    @State private var sliderValue: CGFloat = 0 // Initial slider value (50% width)
+    @State private var sliderValue: CGFloat = 0
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // Background layer with gradient
                 LinearGradient(
                     gradient: Gradient(colors: [.blue.opacity(0.6), .purple.opacity(0.6)]),
                     startPoint: .topLeading,
@@ -14,13 +13,11 @@ struct RevealEffectView: View {
                 )
                 .edgesIgnoringSafeArea(.all)
                 
-                // Main rounded rectangle with shadow and 3D effect
                 RoundedRectangle(cornerRadius: 60)
                     .fill(.white.opacity(0.3))
                     .frame(width: 300, height: 300)
                     .shadow(color: .black.opacity(0.5), radius: 20, x: 5, y: 10)
                     .overlay(
-                        // Inner shadow effect
                         RoundedRectangle(cornerRadius: 60)
                             .stroke(Color.black.opacity(0.1), lineWidth: 2)
                             .blur(radius: 2)
@@ -28,7 +25,6 @@ struct RevealEffectView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 60))
                     )
                     .overlay(
-                        // Placeholder or overlay content
                         Image(systemName: "photo.fill")
                             .resizable()
                             .scaledToFit()
@@ -37,7 +33,6 @@ struct RevealEffectView: View {
                             .foregroundStyle(.white)
                     )
                     .overlay(
-                        // Dynamic image overlay
                         ZStack {
                             Image("Image")
                                 .resizable()
@@ -50,7 +45,7 @@ struct RevealEffectView: View {
                             Color.clear
                                 .contentShape(Rectangle())
                                 .gesture(
-                                    DragGesture(minimumDistance: 0) // Detects touch anywhere
+                                    DragGesture(minimumDistance: 0)
                                         .onChanged { value in
                                             let locationX = value.location.x
                                             sliderValue = max(0, min(locationX / 600, 1))
@@ -62,9 +57,6 @@ struct RevealEffectView: View {
                         .degrees(Double(sliderValue * 5) - 2.5),
                         axis: (x: 1, y: 0, z: 0)
                     )
-                
-                // Slider gesture
-
             }
         }
     }

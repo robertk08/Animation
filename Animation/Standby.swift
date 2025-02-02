@@ -81,7 +81,7 @@ struct ExtractedView: View {
                     .animation(.smooth(duration: 1), value: opacity(for: i, current: seconds))
             }
             Text(time.formatted(date: .omitted, time: .shortened))
-                .font(.system(size: 110, design: .default))
+                .font(.system(size: 110, design: .serif))
                 .frame(width: geometry.size.width / 2)
                 .fontDesign(.default)
                 .bold()
@@ -103,26 +103,25 @@ struct ExtractedView: View {
             second += 7
         }
         let progress = Double(second) / 60.0
-        let sideLength = size.width / 4 - 20
-        let center = size.width / 4
+        let sideLength = size.width / 4 - 30
+        let center = size.width / 4  + 10
         
-        // Determine which side of the square we're on
-        let side = Int(progress * 4) // 0: top, 1: right, 2: bottom, 3: left
+        let side = Int(progress * 4)
         let sideProgress = (progress * 4).truncatingRemainder(dividingBy: 1)
         
         switch side {
         case 0: // Top
-            return CGPoint(x: center - sideLength + (2 * sideLength * sideProgress),
+            return CGPoint(x: center - sideLength + (2 * sideLength * sideProgress) + 10,
                           y:  center - sideLength)
         case 1: // Right
-            return CGPoint(x: center + sideLength,
-                          y:  center - sideLength + (2 * sideLength * sideProgress))
+            return CGPoint(x: center + sideLength ,
+                          y:  center - sideLength + (2 * sideLength * sideProgress) + 10)
         case 2: // Bottom
-            return CGPoint(x: center + sideLength - (2 * sideLength * sideProgress),
+            return CGPoint(x: center + sideLength - (2 * sideLength * sideProgress) - 10,
                           y:  center + sideLength)
         default: // Left
             return CGPoint(x: center - sideLength ,
-                          y:  center + sideLength - (2 * sideLength * sideProgress))
+                          y:  center + sideLength - (2 * sideLength * sideProgress) - 10)
         }
     }
     
