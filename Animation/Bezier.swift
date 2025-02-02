@@ -8,7 +8,7 @@ struct Bezier: View {
         CGSize(width: 400, height: 200),
         CGSize(width: 600, height: 600),
         CGSize(width: 900, height: 1),
-        CGSize(width: 1200, height: 500)] //able to be reset
+        CGSize(width: 1300, height: 500)] //able to be reset
     @State private var circleSize: CGFloat = 20 //changable
     @State private var scales: [Double] = Array(repeating: 1.0, count: 100)
     @State private var movingCircles: [CGSize] = Array(repeating: CGSize.zero, count: 3)
@@ -21,8 +21,8 @@ struct Bezier: View {
     @State private var timer: Timer?
     @State private var mode = 1 // changeable: 1 or 2
     @State private var showText: Bool = false //changable
-    @State private var showLine: Bool = true //changable
-    @State private var showCircles: Bool = true //changable
+    @State private var showLine: Bool = false //changable
+    @State private var showCircles: Bool = false //changable
     @State private var showDrawing: Bool = true //changable
     @State private var showCurve: Bool = true //changable
     @State private var replacePoints: Bool = true //changable
