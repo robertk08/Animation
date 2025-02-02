@@ -29,7 +29,7 @@ struct ModernDesignView: View {
                     .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 5)
                     .padding()
                 
-                // 2. Brightness Control
+                // 2. Brightness Controlll
                 HStack {
                     Image(systemName: "sun.min.fill")
                         .foregroundColor(.yellow)
