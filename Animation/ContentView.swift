@@ -15,13 +15,11 @@ struct ContentView: View {
                     NavigationLink("Word Effect View", destination: WordEffectView())
                     NavigationLink("Color Effect Grid", destination: ColorEffectView())
                     NavigationLink("Rectangles View", destination: RectanglesView())
-                    NavigationLink("Scroll Effect View", destination: ScrollEffectView())
                     NavigationLink("Image Effect View", destination: ImageEffectView())
                     NavigationLink("Circle Effect View", destination: CircleEffectView())
                     NavigationLink("Cursor Effect View", destination: CursorFollowView())
                     NavigationLink("Reveal Effect View", destination: RevealEffectView())
                     NavigationLink("Text Effect View", destination: TextEffectView())
-                    NavigationLink("Design Effect View", destination: ModernDesignView())
                     NavigationLink("Bezier Curve Effect View", destination: Bezier())
 
                 }

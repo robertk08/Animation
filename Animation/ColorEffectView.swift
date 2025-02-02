@@ -5,7 +5,6 @@ struct ColorEffectView: View {
     @State private var opacity: [[Double]]
     
     init() {
-        // Initialize the colors and opacity arrays
         let allColors: [Color] = [
             .red, .green, .blue, .yellow, .orange, .purple, .pink, .gray, .cyan, .mint, .indigo
         ]

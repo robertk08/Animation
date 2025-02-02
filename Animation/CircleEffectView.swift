@@ -29,9 +29,11 @@ struct CircleEffectView: View {
                 }
                 Text("Minumum: \(Int(20 / pairsOf))")
             }
+            
             ZStack {
                 let centerX = geometry.size.width / 2
                 let centerY = geometry.size.height / 2 + 370
+                
                 Rectangle()
                     .frame(width: centerX * 2 - 360, height: 3)
                     .position(x: centerX, y: centerY)
@@ -42,12 +44,12 @@ struct CircleEffectView: View {
                     let oneLoop =  2 * Double.pi
                     let velocity = Double(Int(rotations+1 - Double(index + 1) / pairsOf)) * oneLoop / timerInSeconds
 
-//                    Circle()
-//                        .trim(from: 0.5, to: 1)
-//                        .fill(.clear)
-//                        .stroke(Color.primary, lineWidth: 2)
-//                        .frame(width: radius * 2)
-//                        .position(x: centerX, y: centerY)
+                    Circle()
+                        .trim(from: 0.5, to: 1)
+                        .fill(.clear)
+                        .stroke(Color.primary, lineWidth: 2)
+                        .frame(width: radius * 2)
+                        .position(x: centerX, y: centerY)
                     
                     Circle()
                         .fill(.primary)
@@ -61,14 +63,10 @@ struct CircleEffectView: View {
                         .onAppear {
                             startAnimating(index: index, speedMultiplier: velocity)
                         }
-                    
                 }
             }
         }
         .padding()
-        .onChange(of: timerInSeconds) { oldValue, newValue in
-            //refresh
-        }
     }
     
     func startAnimating(index: Int, speedMultiplier: Double) {
@@ -78,6 +76,7 @@ struct CircleEffectView: View {
         }
     }
 }
+
 #Preview {
     CircleEffectView()
 }

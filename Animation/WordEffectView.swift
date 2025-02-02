@@ -43,7 +43,7 @@ struct WordEffectView: View {
                 return index < Int(tracker) ? letter : abc.randomElement()!
             })
             
-            tracker += 1 / 5
+            tracker += 1 / 2
             
             if Int(tracker) > word.count {
                 timer.invalidate()
