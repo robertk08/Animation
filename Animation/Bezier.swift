@@ -12,8 +12,8 @@ struct Bezier: View {
     @State private var circleSize: CGFloat = 20 //changable
     @State private var scales: [Double] = Array(repeating: 1.0, count: 100)
     @State private var movingCircles: [CGSize] = Array(repeating: CGSize.zero, count: 3)
-    @State private var timeBetweenLines = 0.00002 //changable
-    @State private var timeToDrawLines = 0.001 //changable
+    @State private var timeBetweenLines = 0.1 //changable
+    @State private var timeToDrawLines = 5.0 //changable
     @State private var timeTracker: Double = 0.0
     @State private var tracker = 0
     @State private var drawing = Path()
@@ -25,9 +25,12 @@ struct Bezier: View {
     @State private var showCircles: Bool = false //changable
     @State private var showDrawing: Bool = true //changable
     @State private var showCurve: Bool = true //changable
-    @State private var replacePoints: Bool = true //changable
+    @State private var replacePoints: Bool = false //changable
     @State private var sides: Int = 5 //changable
     @State private var showSettingsSheet = false
+    @State private var instantCurve = Path()
+    @State private var showInstantCurve = true
+    @State private var smothness = 100
 
     
     var body: some View {
@@ -109,6 +112,12 @@ struct Bezier: View {
                     .contentShape(RoundedRectangle(cornerRadius: 5))
             }
             
+            if showInstantCurve {
+                            instantCurve
+                                .stroke(.red, lineWidth: 3)
+                                .contentShape(RoundedRectangle(cornerRadius: 5))
+                        }
+            
             ForEach(0..<points.count, id: \ .self) { index in
                 Circle()
                     .stroke(.primary, lineWidth: 5)
@@ -121,12 +130,14 @@ struct Bezier: View {
                                 points[index] = CGSize(width: value.location.x, height: value.location.y)
                                 withAnimation { scales[index] = 1.5 }
                                 resetAnimations()
+                                instantCurveCreation()
                             }
                             .onEnded { _ in
                                 withAnimation(.spring(response: 0.4, dampingFraction: 0.3, blendDuration: 1)) {
                                     scales[index] = 1.0
                                 }
                                 animateBezier()
+                                instantCurveCreation()
                             }
                     )
             }
@@ -138,6 +149,7 @@ struct Bezier: View {
             movingCircles[0] = points[0]
             movingCircles[1] = points[1]
             animateBezier()
+            instantCurveCreation()
         }
         .onChange(of: replacePoints) { oldValue, newValue in
             resetAnimations()
@@ -152,6 +164,31 @@ struct Bezier: View {
             Button("Reset") {
                 resetAnimations()
             }
+        }
+    }
+    
+    private func instantCurveCreation() {
+        instantCurve = Path()
+        instantCurve.move(to: CGPoint(x: points[0].width, y: points[0].height))
+        
+        for index in 0..<points.count - 2 {
+            for index2 in 0..<smothness {
+                
+                let t: Double = Double(index2) / Double(smothness)
+                let x = pow(1 - t, 2) * points[index].width + 2 * (1 - t) * t * points[index+1].width + pow(t, 2) * points[index+2].width
+                let y = pow(1 - t, 2) * points[index].height + 2 * (1 - t) * t * points[index+1].height + pow(t, 2) * points[index+2].height
+                
+                let point = CGPoint(x: x, y: y)
+                                
+                if index % mode == 0 {
+                    instantCurve.addLine(to: point)
+                }
+            }
+            
+            if index % mode == 0 {
+                instantCurve.addLine(to: CGPoint(x: points[index + 2].width, y: points[index + 2].height))
+            }
+            instantCurve.move(to: CGPoint(x: points[index + 1].width, y: points[index + 1].height))
         }
     }
     
@@ -250,6 +287,7 @@ struct Bezier: View {
         timeTracker = 0
         tracker = 0
         drawing = Path()
+        curve = Path()
     }
     
     func polygonBezierPoints(center: CGSize, radius: CGFloat, sides: Int) -> [CGSize] {
